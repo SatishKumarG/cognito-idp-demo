@@ -21,7 +21,7 @@ const factory = (function componentFactory() {
   };
   const loginComponent = ({ onAction, identityId }) => (
     <div>
-      {identityId && <span>You're now logged in as {identityId}!</span>}
+      {identityId && <span>You are now logged in as {identityId}!</span>}
       <input defaultValue="simone1" ref={node => { usernameField = node; }} />
       <input defaultValue="asdASD123!" ref={node => { passwordField = node; }} />
       <button type="submit" onClick={handleClickFactory(onAction)}>Login</button>

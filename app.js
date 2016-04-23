@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import * as idp from './lib/idp';
 import LoginComponent from './components/Login';
+import LogoutComponent from './components/Logout';
 
 idp.configure({
   region: 'us-east-1',
@@ -20,6 +21,7 @@ function render() {
     <div>
       <h1>Welcome</h1>
       <LoginComponent {...appState} onAction={onAction} />
+      <LogoutComponent {...appState} onAction={onAction} />
     </div>
   );
   ReactDOM.render(app, root);
@@ -31,10 +33,14 @@ onAction = action => {
       console.log('User is authenticated and can now call AWS API with identityId =', action.identityId);
       appState = {
         ...appState,
-        session: action.session,
+        session: action.session, // @TODO: serialize session
         identityId: action.identityId,
       };
       render();
+      break;
+    case 'logout':
+      alert('You are now logged out. Page needs to be refereshed.');
+      location.reload();
       break;
     default:
       console.log(`Unknown action: '${action.type}'`);

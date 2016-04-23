@@ -1,0 +1,39 @@
+{
+  "parser": "babel-eslint",
+  "extends": "panda",
+  "plugins": [
+    "import"
+  ],
+  "env": {
+    "es6": true,
+    "browser": true,
+  },
+  "settings": {
+    "import/resolver": "webpack",
+    "import/ignore": [
+      "node_modules",
+      "\\.(styl|css)$",
+      "\\.(json||json5|txt|html)$",
+      "\\.(png|jpg|jpeg)$",
+    ],
+  },
+  "rules": {
+    "no-unused-vars": [1],
+    "new-cap": [0],
+    "max-len": [0],
+    "react/jsx-no-bind": [0],
+    "sorting/sort-object-props": [0],
+    "sort-imports": [0],
+    "newline-after-var": [1],
+    "no-underscore-dangle": [1],
+    "arrow-parens": [1],
+    "import/no-commonjs": [1],
+    "import/imports-first": [1],
+    "arrow-body-style": [1],
+    "keyword-spacing": [1]
+  },
+  "globals": {
+    "process": true,
+    "require": true,
+  }
+}

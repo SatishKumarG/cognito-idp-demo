@@ -24,7 +24,7 @@
     "react/jsx-no-bind": [0],
     "sorting/sort-object-props": [0],
     "sort-imports": [0],
-    "newline-after-var": [1],
+    "newline-after-var": [0],
     "no-underscore-dangle": [1],
     "arrow-parens": [1],
     "import/no-commonjs": [1],

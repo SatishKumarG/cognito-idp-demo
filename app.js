@@ -11,15 +11,47 @@ idp.configure({
   clientId: '6lcq6cc3ot5vfdli5o12tio2sa',
 });
 
-const app = (
-  <div>
-    <h1>Welcome</h1>
-    <LoginComponent />
-  </div>
-);
+let onAction = null;
+let appState = {};
 
-const root = document.getElementById('app');
-idp.bootstrap()
-.then(() => {
+function render() {
+  const root = document.getElementById('app');
+  const app = (
+    <div>
+      <h1>Welcome</h1>
+      <LoginComponent {...appState} onAction={onAction} />
+    </div>
+  );
   ReactDOM.render(app, root);
-});
+}
+
+onAction = action => {
+  switch (action.type) {
+    case 'login':
+      console.log('User is authenticated and can now call AWS API with identityId =', action.identityId);
+      appState = {
+        ...appState,
+        session: action.session,
+        identityId: action.identityId,
+      };
+      render();
+      break;
+    default:
+      console.log(`Unknown action: '${action.type}'`);
+  }
+};
+
+function tryRestoreSession() {
+  return idp.restoreAuthenticatedUser()
+  .then(params => {
+    console.log('Found session', params);
+    onAction({ type: 'login', ...params });
+  })
+  .catch(err => {
+    console.log('Session cannot be restored or no previous session', err);
+  });
+}
+
+idp.bootstrap()
+.then(tryRestoreSession)
+.then(() => render(appState));
